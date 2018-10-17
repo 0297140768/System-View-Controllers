@@ -75,9 +75,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         composeVC!.mailComposeDelegate = self
         
         // Configure the fields of the interface.
-        composeVC!.setToRecipients(["address@example.com"])
+        composeVC!.setToRecipients(["admin@apple.com"])
         composeVC!.setSubject("Hello!")
-        composeVC!.setMessageBody("Hello from California!", isHTML: false)
+        composeVC!.setMessageBody("Hello from Russia!", isHTML: false)
         
         // Present the view controller modally.
         self.present(composeVC!, animated: true, completion: nil)
