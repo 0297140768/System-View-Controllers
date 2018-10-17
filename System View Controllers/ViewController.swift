@@ -12,6 +12,8 @@ import MessageUI
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate {
 
+    var composeVC: MFMailComposeViewController?
+    
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
@@ -66,7 +68,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func emailButtonTapped(_ sender: UIButton) {
         if !MFMailComposeViewController.canSendMail() {
             print("Нельзя послать e-mail")
+            return
         }
+        
+        composeVC = MFMailComposeViewController()
+        composeVC!.mailComposeDelegate = self
+        
+        // Configure the fields of the interface.
+        composeVC!.setToRecipients(["address@example.com"])
+        composeVC!.setSubject("Hello!")
+        composeVC!.setMessageBody("Hello from California!", isHTML: false)
+        
+        // Present the view controller modally.
+        self.present(composeVC!, animated: true, completion: nil)
+        
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: { self.composeVC = nil })
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
